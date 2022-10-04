@@ -26,8 +26,15 @@ JOIN "products" ON "warehouse_product"."product_id" = "products"."id"
 WHERE "products"."description" = 'diet pepsi';
 
 -- 5. Get the number of orders for each customer. NOTE: It is OK if those without orders are not included in results.
+SELECT array_agg(DISTINCT "c"."first_name" ||', '|| "c"."last_name") AS "customer_name",
+count(*) AS "orders" 
+FROM "customers" AS "c"
+JOIN "addresses" AS "a" ON "c"."id" = "a"."customer_id"
+JOIN "orders" AS "o" ON "a"."id" = "o"."address_id"
+GROUP BY "a"."customer_id";
 
 -- 6. How many customers do we have?
+
 
 -- 7. How many products do we carry?
 
