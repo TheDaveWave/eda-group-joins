@@ -40,7 +40,9 @@ SELECT count("customers"."id") FROM "customers";
 SELECT count(DISTINCT "products"."description") FROM "products";
 
 -- 8. What is the total available on-hand quantity of diet pepsi?
-
+SELECT SUM("wp"."on_hand") FROM "products" AS "p"
+JOIN "warehouse_product" AS "wp" ON "wp"."product_id" = "p"."id"
+WHERE "p"."description" = 'diet pepsi';
 
 
 --Stretch
