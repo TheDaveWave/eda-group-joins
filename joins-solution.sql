@@ -34,7 +34,7 @@ JOIN "orders" AS "o" ON "a"."id" = "o"."address_id"
 GROUP BY "a"."customer_id";
 
 -- 6. How many customers do we have?
-
+SELECT count("customers"."id") FROM "customers";
 
 -- 7. How many products do we carry?
 
