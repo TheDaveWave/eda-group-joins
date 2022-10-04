@@ -64,4 +64,13 @@ JOIN "products" AS "p" ON "li"."product_id" = "p"."id"
 GROUP BY "c"."id";
 
 -- 11. How much has each customer spent in total? Customers who have spent $0 should still show up in the table.
+SELECT array_agg(DISTINCT "c"."first_name" ||', '|| "c"."last_name") AS "customer_name",
+SUM("p"."unit_price"*"li"."quantity") AS "total_spent"
+FROM "customers" AS "c"
+LEFT OUTER JOIN "addresses" AS "a" ON "c"."id" = "a"."customer_id"
+LEFT OUTER JOIN "orders" AS "o" ON "a"."id" = "o"."address_id"
+LEFT OUTER JOIN "line_items" AS "li" ON "o"."id" = "li"."order_id"
+LEFT OUTER JOIN "products" AS "p" ON "li"."product_id" = "p"."id"
+GROUP BY "c"."id";
+
 -- It should say 0, not NULL (research coalesce).
