@@ -47,8 +47,14 @@ WHERE "p"."description" = 'diet pepsi';
 
 --Stretch
 -- 9. How much was the total cost for each order?
+SELECT "o"."id" AS "order", SUM("p"."unit_price") AS "total" FROM "orders" AS "o"
+JOIN "line_items" AS "li" ON "o"."id" = "li"."order_id"
+JOIN "products" AS "p" ON "li"."order_id" = "p"."id"
+GROUP BY "o"."id" 
+ORDER BY "o"."id";
 
 -- 10. How much has each customer spent in total?
+
 
 -- 11. How much has each customer spent in total? Customers who have spent $0 should still show up in the table.
 -- It should say 0, not NULL (research coalesce).
