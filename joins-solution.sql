@@ -1,5 +1,9 @@
 -- 1. Get all customers and their addresses.
-
+SELECT "customers"."first_name", "customers"."last_name", 
+array_agg("addresses"."street" ||', '|| "addresses"."city" ||', '|| "addresses"."state" ||', '|| "addresses"."zip")
+AS "address"
+FROM "addresses" JOIN "customers" ON "addresses"."customer_id" = "customers"."id"
+GROUP BY "customers"."id";
 -- 2. Get all orders and their line items (orders, quantity and product).
 
 -- 3. Which warehouses have cheetos?
