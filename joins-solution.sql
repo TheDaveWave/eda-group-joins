@@ -74,3 +74,11 @@ LEFT OUTER JOIN "products" AS "p" ON "li"."product_id" = "p"."id"
 GROUP BY "c"."id";
 
 -- It should say 0, not NULL (research coalesce).
+SELECT array_agg(DISTINCT "c"."first_name" ||', '|| "c"."last_name") AS "customer_name",
+COALESCE(SUM("p"."unit_price"*"li"."quantity"), '0') AS "total_spent"
+FROM "customers" AS "c"
+LEFT OUTER JOIN "addresses" AS "a" ON "c"."id" = "a"."customer_id"
+LEFT OUTER JOIN "orders" AS "o" ON "a"."id" = "o"."address_id"
+LEFT OUTER JOIN "line_items" AS "li" ON "o"."id" = "li"."order_id"
+LEFT OUTER JOIN "products" AS "p" ON "li"."product_id" = "p"."id"
+GROUP BY "c"."id";
